@@ -5,17 +5,32 @@ import PackageDescription
 
 let package = Package(
     name: "DataStore",
+    platforms: [
+        .macOS(.v10_15)
+    ],
     products: [
-        // Products define the executables and libraries a package produces, making them visible to other packages.
         .library(
             name: "DataStore",
-            targets: ["DataStore"]),
+            targets: ["DataStore"]
+        ),
+    ],
+    dependencies: [
+        .package(url: "https://github.com/apple/swift-openapi-generator.git", from: "1.7.1"),
+        .package(url: "https://github.com/apple/swift-openapi-runtime.git", from: "1.8.1"),
+        .package(url: "https://github.com/apple/swift-openapi-urlsession.git", from: "1.0.2")
     ],
     targets: [
-        // Targets are the basic building blocks of a package, defining a module or a test suite.
-        // Targets can depend on other targets in this package and products from dependencies.
         .target(
-            name: "DataStore"),
+            name: "DataStore",
+            dependencies: [
+                .product(name: "OpenAPIRuntime", package: "swift-openapi-runtime"),
+                .product(name: "OpenAPIURLSession", package: "swift-openapi-urlsession")
+            ],
+            path: "Sources",
+            plugins: [
+                .plugin(name: "OpenAPIGenerator", package: "swift-openapi-generator")
+            ]
+        ),
         .testTarget(
             name: "DataStoreTests",
             dependencies: ["DataStore"]
