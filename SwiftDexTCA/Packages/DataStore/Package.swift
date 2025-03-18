@@ -6,7 +6,8 @@ import PackageDescription
 let package = Package(
     name: "DataStore",
     platforms: [
-        .macOS(.v10_15)
+        .iOS(.v17),
+        .macOS(.v14)
     ],
     products: [
         .library(

@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "container:Packages/Domain">
+   </FileRef>
+   <FileRef
       location = "container:SwiftDexTCA.xcodeproj">
    </FileRef>
    <FileRef

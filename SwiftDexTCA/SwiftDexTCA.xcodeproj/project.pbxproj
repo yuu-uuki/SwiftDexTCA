@@ -6,6 +6,11 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		2A52A1172D891A37002F2AA4 /* DataStore in Frameworks */ = {isa = PBXBuildFile; productRef = 2A52A1162D891A37002F2AA4 /* DataStore */; };
+		2A5981832D89551600F03B4F /* Domain in Frameworks */ = {isa = PBXBuildFile; productRef = 2A5981822D89551600F03B4F /* Domain */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		2A529F932D87E6BD002F2AA4 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -52,6 +57,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2A5981832D89551600F03B4F /* Domain in Frameworks */,
+				2A52A1172D891A37002F2AA4 /* DataStore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,6 +85,7 @@
 				2A529F812D87E6BD002F2AA4 /* SwiftDexTCA */,
 				2A529F952D87E6BD002F2AA4 /* SwiftDexTCATests */,
 				2A529F9F2D87E6BD002F2AA4 /* SwiftDexTCAUITests */,
+				2A52A1152D891A37002F2AA4 /* Frameworks */,
 				2A529F802D87E6BD002F2AA4 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -90,6 +98,13 @@
 				2A529F9C2D87E6BD002F2AA4 /* SwiftDexTCAUITests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		2A52A1152D891A37002F2AA4 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -112,6 +127,8 @@
 			);
 			name = SwiftDexTCA;
 			packageProductDependencies = (
+				2A52A1162D891A37002F2AA4 /* DataStore */,
+				2A5981822D89551600F03B4F /* Domain */,
 			);
 			productName = SwiftDexTCA;
 			productReference = 2A529F7F2D87E6BD002F2AA4 /* SwiftDexTCA.app */;
@@ -591,6 +608,17 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		2A52A1162D891A37002F2AA4 /* DataStore */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = DataStore;
+		};
+		2A5981822D89551600F03B4F /* Domain */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Domain;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 2A529F772D87E6BD002F2AA4 /* Project object */;
 }
