@@ -17,7 +17,7 @@ public enum PokemonListDataStoreProvider {
     }
 }
 
-public protocol PokemonListDataStore {
+public protocol PokemonListDataStore: Sendable {
     func execute(input: Operations.pokemon_list.Input) async throws(ApplicationError) -> [Components.Schemas.PokemonSummary]
 }
 

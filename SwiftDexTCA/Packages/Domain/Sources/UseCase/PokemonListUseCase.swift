@@ -16,7 +16,7 @@ public enum PokemonListUseCaseProvider {
     }
 }
 
-public protocol PokemonListUseCase {
+public protocol PokemonListUseCase: Sendable {
     func execute(limit: Int, offset: Int) async throws(PokemonError) -> [Pokemon]
 }
 

@@ -16,7 +16,7 @@ public enum PokemonListRepositoryProvider {
     }
 }
 
-public protocol PokemonListRepository {
+public protocol PokemonListRepository: Sendable {
     func execute(limit: Int, offset: Int) async throws(ApplicationError) -> [Components.Schemas.PokemonSummary]
 }
 
