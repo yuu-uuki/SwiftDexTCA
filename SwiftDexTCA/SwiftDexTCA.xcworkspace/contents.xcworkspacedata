@@ -2,12 +2,15 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "container:Packages/DataStore">
+   </FileRef>
+   <FileRef
       location = "container:Packages/Domain">
    </FileRef>
    <FileRef
-      location = "container:SwiftDexTCA.xcodeproj">
+      location = "container:Packages/Presentation">
    </FileRef>
    <FileRef
-      location = "container:Packages/DataStore">
+      location = "container:SwiftDexTCA.xcodeproj">
    </FileRef>
 </Workspace>

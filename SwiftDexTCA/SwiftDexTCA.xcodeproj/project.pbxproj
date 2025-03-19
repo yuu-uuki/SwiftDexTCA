@@ -7,8 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2A52A1172D891A37002F2AA4 /* DataStore in Frameworks */ = {isa = PBXBuildFile; productRef = 2A52A1162D891A37002F2AA4 /* DataStore */; };
-		2A5981832D89551600F03B4F /* Domain in Frameworks */ = {isa = PBXBuildFile; productRef = 2A5981822D89551600F03B4F /* Domain */; };
+		2A5981CD2D8AA86B00F03B4F /* Presentation in Frameworks */ = {isa = PBXBuildFile; productRef = 2A5981CC2D8AA86B00F03B4F /* Presentation */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,8 +56,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2A5981832D89551600F03B4F /* Domain in Frameworks */,
-				2A52A1172D891A37002F2AA4 /* DataStore in Frameworks */,
+				2A5981CD2D8AA86B00F03B4F /* Presentation in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -127,8 +125,7 @@
 			);
 			name = SwiftDexTCA;
 			packageProductDependencies = (
-				2A52A1162D891A37002F2AA4 /* DataStore */,
-				2A5981822D89551600F03B4F /* Domain */,
+				2A5981CC2D8AA86B00F03B4F /* Presentation */,
 			);
 			productName = SwiftDexTCA;
 			productReference = 2A529F7F2D87E6BD002F2AA4 /* SwiftDexTCA.app */;
@@ -610,13 +607,9 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		2A52A1162D891A37002F2AA4 /* DataStore */ = {
+		2A5981CC2D8AA86B00F03B4F /* Presentation */ = {
 			isa = XCSwiftPackageProductDependency;
-			productName = DataStore;
-		};
-		2A5981822D89551600F03B4F /* Domain */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = Domain;
+			productName = Presentation;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

@@ -15,18 +15,13 @@ let package = Package(
             targets: ["Domain"]),
     ],
     dependencies: [
-        .package(
-            path: "../Packages/DataStore"
-        ),
+        .package(path: "../Packages/DataStore"),
     ],
     targets: [
         .target(
             name: "Domain",
             dependencies: [
-                .product(
-                    name: "DataStore", 
-                    package: "DataStore"
-                )
+                .product(name: "DataStore", package: "DataStore")
             ]
         ),
         .testTarget(
