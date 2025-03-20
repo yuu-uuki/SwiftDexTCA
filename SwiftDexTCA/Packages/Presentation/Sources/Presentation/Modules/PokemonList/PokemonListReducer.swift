@@ -12,7 +12,7 @@ import Foundation
 @Reducer
 struct PokemonListReducer : Sendable{
 
-    var pokemonListUseCase: PokemonListUseCase!
+    @Dependency(\.pokemonListUseCase) var pokemonListUseCase
 
     @ObservableState
     struct State {

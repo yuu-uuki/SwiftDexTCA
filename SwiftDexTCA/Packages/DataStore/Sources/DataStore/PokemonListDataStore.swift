@@ -1,31 +1,23 @@
 // The Swift Programming Language
 // https://docs.swift.org/swift-book
 
+import Dependencies
 import Foundation
 import OpenAPIRuntime
 import OpenAPIURLSession
-
-public enum PokemonListDataStoreProvider {
-
-    public static func provide() -> PokemonListDataStore {
-        return PokemonListDataStoreImpl(
-            client: Client(
-                serverURL: try! Servers.Server1.url(),
-                transport: URLSessionTransport()
-            )
-        )
-    }
-}
 
 public protocol PokemonListDataStore: Sendable {
     func execute(input: Operations.pokemon_list.Input) async throws(ApplicationError) -> [Components.Schemas.PokemonSummary]
 }
 
-private struct PokemonListDataStoreImpl: PokemonListDataStore {
+public struct PokemonListDataStoreImpl: PokemonListDataStore {
 
-    let client: Client
+    let client = Client(
+        serverURL: try! Servers.Server1.url(),
+        transport: URLSessionTransport()
+    )
 
-    func execute(input: Operations.pokemon_list.Input) async throws(ApplicationError) -> [Components.Schemas.PokemonSummary] {
+    public func execute(input: Operations.pokemon_list.Input) async throws(ApplicationError) -> [Components.Schemas.PokemonSummary] {
         do {
             let response = try await self.client.pokemon_list(input)
             switch response {
@@ -39,5 +31,18 @@ private struct PokemonListDataStoreImpl: PokemonListDataStore {
         } catch {
             throw ApplicationError.network(.api(error))
         }
+    }
+}
+
+extension PokemonListDataStoreImpl: DependencyKey {
+    public static var liveValue: PokemonListDataStore {
+        PokemonListDataStoreImpl()
+    }
+}
+
+extension DependencyValues {
+    public var pokemonListDataStore: PokemonListDataStore {
+        get { self[PokemonListDataStoreImpl.self] }
+        set { self[PokemonListDataStoreImpl.self] = newValue }
     }
 }

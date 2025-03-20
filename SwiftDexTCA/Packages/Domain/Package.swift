@@ -16,12 +16,14 @@ let package = Package(
     ],
     dependencies: [
         .package(path: "../Packages/DataStore"),
+        .package(url: "https://github.com/pointfreeco/swift-dependencies.git", from: "1.8.1")
     ],
     targets: [
         .target(
             name: "Domain",
             dependencies: [
-                .product(name: "DataStore", package: "DataStore")
+                .product(name: "DataStore", package: "DataStore"),
+                .product(name: "Dependencies", package: "swift-dependencies")
             ]
         ),
         .testTarget(

@@ -6,30 +6,36 @@
 //
 
 import DataStore
-
-public enum PokemonListUseCaseProvider {
-
-    public static func provide() -> PokemonListUseCase {
-        return PokemonListUseCaseImpl(
-            repository: PokemonListRepositoryProvider.provider()
-        )
-    }
-}
+import Dependencies
 
 public protocol PokemonListUseCase: Sendable {
     func execute(limit: Int, offset: Int) async throws(PokemonError) -> [Pokemon]
 }
 
-private struct PokemonListUseCaseImpl: PokemonListUseCase {
+public struct PokemonListUseCaseImpl: PokemonListUseCase {
 
-    let repository: PokemonListRepository
+    @Dependency(\.pokemonListRepository) var pokemonListRepository
 
-    func execute(limit: Int, offset: Int) async throws(PokemonError) -> [Pokemon] {
+    public func execute(limit: Int, offset: Int) async throws(PokemonError) -> [Pokemon] {
         do {
-            let summaries = try await repository.execute(limit: limit, offset: offset)
+            let summaries = try await pokemonListRepository.execute(limit: limit, offset: offset)
             return summaries.map { Pokemon($0) }
         } catch {
             throw .init(error)
         }
     }
 }
+
+extension PokemonListUseCaseImpl: DependencyKey {
+    public static var liveValue: PokemonListUseCase {
+        PokemonListUseCaseImpl()
+    }
+}
+
+extension DependencyValues {
+    public var pokemonListUseCase: PokemonListUseCase {
+        get { self[PokemonListUseCaseImpl.self] }
+        set { self[PokemonListUseCaseImpl.self] = newValue }
+      }
+}
+
