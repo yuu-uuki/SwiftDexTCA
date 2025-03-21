@@ -16,28 +16,35 @@ struct PokemonListReducer : Sendable{
 
     @ObservableState
     struct State {
-        var pokemons: [Pokemon] = []
+        var pokemonList: [Pokemon?] = []
         var error: PokemonError? = nil
+
+        @ObservationStateIgnored
+        var offset: Int = 0
     }
 
     enum Action {
-        case onAppear
-        case setPokemons([Pokemon])
+        case fetchPokemonList
+        case setPokemonList([Pokemon?])
         case error(PokemonError)
+        case unowned
     }
 
     var body: some Reducer<State, Action> {
         Reduce { state, action in
             switch action {
-            case .onAppear:
-                return .run { send in
-                    await send(await requestPokemonList())
+            case .fetchPokemonList:
+                return .run { [offset = state.offset] send in
+                    await send(await requestPokemonList(offset: offset))
                 }
-            case let .setPokemons(pokemons):
-                state.pokemons = pokemons
+            case let .setPokemonList(pokemonList):
+                state.pokemonList.append(contentsOf: pokemonList)
+                state.offset += pokemonList.count
                 return .none
             case let .error(error):
                 state.error = error
+                return .none
+            case .unowned:
                 return .none
             }
         }
@@ -46,12 +53,14 @@ struct PokemonListReducer : Sendable{
 
 extension PokemonListReducer {
 
-    private func requestPokemonList() async -> Action {
+    private func requestPokemonList(offset: Int) async -> Action {
         do {
-            let pokeomons = try await pokemonListUseCase.execute(limit: 20, offset: 1)
-            return .setPokemons(pokeomons)
-        } catch {
+            let pokemonList = try await pokemonListUseCase.execute(limit: 50, offset: offset)
+            return .setPokemonList(pokemonList)
+        } catch let error as PokemonError {
             return .error(error)
+        } catch {
+            return .unowned
         }
     }
 }

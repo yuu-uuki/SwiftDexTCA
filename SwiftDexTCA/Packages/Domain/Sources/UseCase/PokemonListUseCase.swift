@@ -8,34 +8,41 @@
 import DataStore
 import Dependencies
 
+/// @mockable
 public protocol PokemonListUseCase: Sendable {
-    func execute(limit: Int, offset: Int) async throws(PokemonError) -> [Pokemon]
+    func execute(limit: Int, offset: Int) async throws -> [Pokemon?]
 }
 
 public struct PokemonListUseCaseImpl: PokemonListUseCase {
 
     @Dependency(\.pokemonListRepository) var pokemonListRepository
 
-    public func execute(limit: Int, offset: Int) async throws(PokemonError) -> [Pokemon] {
+    public func execute(limit: Int, offset: Int) async throws -> [Pokemon?] {
         do {
             let summaries = try await pokemonListRepository.execute(limit: limit, offset: offset)
             return summaries.map { Pokemon($0) }
         } catch {
-            throw .init(error)
+            throw PokemonError.init(error)
         }
     }
 }
 
 extension PokemonListUseCaseImpl: DependencyKey {
+
     public static var liveValue: PokemonListUseCase {
         PokemonListUseCaseImpl()
+    }
+
+    public static var previewValue: PokemonListUseCase {
+        PokemonListUseCaseMock()
     }
 }
 
 extension DependencyValues {
+
     public var pokemonListUseCase: PokemonListUseCase {
         get { self[PokemonListUseCaseImpl.self] }
         set { self[PokemonListUseCaseImpl.self] = newValue }
-      }
+    }
 }
 
