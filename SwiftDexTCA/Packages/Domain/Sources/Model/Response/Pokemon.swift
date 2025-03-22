@@ -23,5 +23,12 @@ public struct Pokemon {
         spriteImageUrl = PokemonUtility.getSpriteImageURL(from: summary.url)
         officialArtworkImageUrl = PokemonUtility.getOfficialArtworkURL(from: summary.url)
     }
+
+    public init(number: Int) {
+        id = number
+        name = "testName\(number)"
+        spriteImageUrl = URL(string: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/\(number).png")
+        officialArtworkImageUrl = URL(string: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/\(number).png")
+    }
 }
 

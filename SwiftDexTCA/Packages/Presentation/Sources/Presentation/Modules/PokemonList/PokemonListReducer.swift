@@ -16,7 +16,7 @@ struct PokemonListReducer : Sendable{
 
     @ObservableState
     struct State {
-        var pokemonList: [Pokemon?] = []
+        var pokemonList: [Pokemon] = []
         var error: PokemonError? = nil
 
         @ObservationStateIgnored
@@ -25,7 +25,7 @@ struct PokemonListReducer : Sendable{
 
     enum Action {
         case fetchPokemonList
-        case setPokemonList([Pokemon?])
+        case setPokemonList([Pokemon])
         case error(PokemonError)
         case unowned
     }
