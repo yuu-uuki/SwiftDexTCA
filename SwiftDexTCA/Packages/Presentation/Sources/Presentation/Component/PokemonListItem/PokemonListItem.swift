@@ -35,8 +35,8 @@ private extension PokemonListItem {
 
     func backgroundView() -> some View {
         RoundedRectangle(cornerRadius: Token.CornerRadius.pronounced)
-            .fill(.white)
-            .shadow(radius: Token.Shadow.medium)
+            .fill(Color(.pokemonFgDefault))
+            .shadow(color: Color(.pokemonFgShadow), radius: Token.Shadow.soft)
     }
 
     func pokemonImageView() -> some View {
@@ -53,11 +53,9 @@ private extension PokemonListItem {
     func pokemonInfoView() -> some View {
         VStack {
             Text("# \(pokemon.id.description)")
-                .foregroundStyle(.gray)
-                .font(.system(size: Token.FontSize.small))
+                .pokemonIDStyle()
             Text(pokemon.name)
-                .font(.system(size: Token.FontSize.medium))
-                .bold()
+                .pokemonNameStyle()
         }
     }
 }
