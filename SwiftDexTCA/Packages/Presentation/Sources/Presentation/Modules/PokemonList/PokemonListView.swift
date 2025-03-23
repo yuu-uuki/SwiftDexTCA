@@ -17,12 +17,18 @@ struct PokemonListView: View {
             LazyVGrid(columns: Token.GridLayout.threeColumns, spacing: Token.Spacing.normal) {
                 ForEach(store.state.pokemonList, id: \.id) { pokemon in
                     PokemonListItem(pokemon: pokemon)
+                        .onAppear {
+                            store.send(.bottomPagination(pokemon.id))
+                        }
                 }
             }
             .padding()
         }
         .onAppear {
-            store.send(.fetchPokemonList)
+            store.send(.fetchInitialPokemonList(.zero))
+        }
+        .refreshable {
+            store.send(.fetchInitialPokemonList(.zero))
         }
     }
 }
