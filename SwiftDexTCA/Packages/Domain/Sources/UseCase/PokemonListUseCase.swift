@@ -32,6 +32,14 @@ extension PokemonListUseCaseImpl: DependencyKey {
     public static var liveValue: PokemonListUseCase {
         PokemonListUseCaseImpl()
     }
+
+    public static var previewValue: any PokemonListUseCase {
+        let mockUseCase = PokemonListUseCaseMock()
+        mockUseCase.executeHandler = { _, _ in
+            (1...30).map { Pokemon(number: $0) }
+        }
+        return mockUseCase
+    }
 }
 
 extension DependencyValues {

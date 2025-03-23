@@ -11,20 +11,23 @@ import SwiftUI
 struct PokemonListItem: View {
 
     let pokemon: Pokemon
-    let componentHeight: CGFloat = 200
+
+    let imageHeight: CGFloat = 80
+    var backgroundViewPaddingTop: CGFloat {
+        imageHeight / 2
+    }
 
     var body: some View {
         ZStack {
             backgroundView()
-                .padding(.top, componentHeight / 4)
+                .padding(.top, backgroundViewPaddingTop)
             VStack(spacing: Token.Padding.compact) {
                 pokemonImageView()
-                    .frame(maxWidth: .infinity)
+                    .shadow(radius: Token.Shadow.medium)
                 pokemonInfoView()
-                    .padding(.bottom, Token.Padding.regular)
+                    .padding(.bottom, Token.Padding.compact)
             }
         }
-        .frame(height: componentHeight)
     }
 }
 
@@ -44,15 +47,16 @@ private extension PokemonListItem {
                 .resizable()
         }
         .scaledToFit()
+        .frame(height: imageHeight)
     }
 
     func pokemonInfoView() -> some View {
-        VStack(spacing: Token.Spacing.tight) {
+        VStack {
             Text("# \(pokemon.id.description)")
-                .font(.title3)
                 .foregroundStyle(.gray)
+                .font(.system(size: Token.FontSize.small))
             Text(pokemon.name)
-                .font(.title2)
+                .font(.system(size: Token.FontSize.medium))
                 .bold()
         }
     }

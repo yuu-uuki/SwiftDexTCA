@@ -1,5 +1,5 @@
 //
-//  PokemonListReducer.swift
+//  PokemonListStore.swift
 //  Presentation
 //
 //  Created by 田中裕貴 on 2025/03/19.
@@ -10,7 +10,7 @@ import Domain
 import Foundation
 
 @Reducer
-struct PokemonListReducer : Sendable{
+struct PokemonListStore: Sendable{
 
     @Dependency(\.pokemonListUseCase) var pokemonListUseCase
 
@@ -51,11 +51,12 @@ struct PokemonListReducer : Sendable{
     }
 }
 
-extension PokemonListReducer {
+extension PokemonListStore {
 
     private func requestPokemonList(offset: Int) async -> Action {
         do {
             let pokemonList = try await pokemonListUseCase.execute(limit: 50, offset: offset)
+            print(pokemonList)
             return .setPokemonList(pokemonList)
         } catch let error as PokemonError {
             return .error(error)

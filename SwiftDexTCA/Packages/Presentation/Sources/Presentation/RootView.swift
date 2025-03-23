@@ -10,9 +10,9 @@ import ComposableArchitecture
 
 public struct RootView: View {
     public var body: some View {
-        FeatureView(
-            store: Store(initialState: Feature.State()) {
-                Feature()
+        PokemonListView(
+            store: Store(initialState: PokemonListStore.State()) {
+                PokemonListStore()
             }
         )
     }

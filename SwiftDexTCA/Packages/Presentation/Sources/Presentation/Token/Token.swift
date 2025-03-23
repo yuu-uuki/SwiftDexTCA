@@ -6,8 +6,15 @@
 //
 
 import Foundation
+import SwiftUI
 
 struct Token {
+
+    struct FontSize {
+        static let small: CGFloat = 12
+        static let medium: CGFloat = 16
+        static let large: CGFloat = 20
+    }
 
     struct Spacing {
         static let tight: CGFloat = 4
@@ -31,5 +38,12 @@ struct Token {
         static let soft: CGFloat = 2
         static let medium: CGFloat = 4
         static let strong: CGFloat = 8
+    }
+
+    struct GridLayout {
+        static let threeColumns = columns(count: 3)
+        static func columns(count: Int) -> [GridItem] {
+            return Array(repeating: GridItem(.flexible()), count: count)
+        }
     }
 }
