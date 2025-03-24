@@ -23,7 +23,7 @@ struct PokemonListItem: View {
                 .padding(.top, backgroundViewPaddingTop)
             VStack(spacing: Token.Padding.compact) {
                 pokemonImageView()
-                    .shadow(radius: Token.Shadow.medium)
+                    .shadow(color: Color(.pokemonFgShadow).opacity(0.1), radius: Token.Shadow.soft)
                 pokemonInfoView()
                     .padding(.bottom, Token.Padding.compact)
             }
@@ -35,8 +35,8 @@ private extension PokemonListItem {
 
     func backgroundView() -> some View {
         RoundedRectangle(cornerRadius: Token.CornerRadius.pronounced)
-            .fill(Color(.pokemonFgDefault))
-            .shadow(color: Color(.pokemonFgShadow), radius: Token.Shadow.soft)
+            .fill(Color(.pokemonItemBg))
+            .shadow(color: Color(.pokemonFgShadow).opacity(0.1), radius: Token.Shadow.medium, y: 2)
     }
 
     func pokemonImageView() -> some View {

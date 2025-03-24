@@ -14,16 +14,20 @@ struct PokemonListView: View {
 
     var body: some View {
         ScrollView {
-            LazyVGrid(columns: Token.GridLayout.threeColumns, spacing: Token.Spacing.normal) {
-                ForEach(store.state.pokemonList, id: \.id) { pokemon in
-                    PokemonListItem(pokemon: pokemon)
-                        .onAppear {
-                            store.send(.bottomPagination(pokemon.id))
-                        }
+            ZStack {
+                Color(.pokemonBg)
+                LazyVGrid(columns: Token.GridLayout.threeColumns, spacing: Token.Spacing.normal) {
+                    ForEach(store.state.pokemonList, id: \.id) { pokemon in
+                        PokemonListItem(pokemon: pokemon)
+                            .onAppear {
+                                store.send(.bottomPagination(pokemon.id))
+                            }
+                    }
                 }
+                .padding()
             }
-            .padding()
         }
+        .ignoresSafeArea()
         .onAppear {
             store.send(.fetchInitialPokemonList(.zero))
         }
