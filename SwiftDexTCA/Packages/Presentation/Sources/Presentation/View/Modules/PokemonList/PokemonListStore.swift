@@ -10,7 +10,7 @@ import Domain
 import Foundation
 
 @Reducer
-struct PokemonListStore: Sendable{
+struct PokemonListStore: Sendable {
 
     @Dependency(\.pokemonListUseCase) var pokemonListUseCase
 
