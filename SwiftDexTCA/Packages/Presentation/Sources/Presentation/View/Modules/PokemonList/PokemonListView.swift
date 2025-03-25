@@ -18,16 +18,19 @@ struct PokemonListView: View {
                 Color(.pokemonBg)
                 LazyVGrid(columns: Token.GridLayout.threeColumns, spacing: Token.Spacing.normal) {
                     ForEach(store.state.pokemonList, id: \.id) { pokemon in
-                        PokemonListItem(pokemon: pokemon)
-                            .onAppear {
-                                store.send(.bottomPagination(pokemon.id))
-                            }
+                        Button(action: {
+                            // ボタンがタップされた時のアクション
+                        }) {
+                            PokemonListItem(pokemon: pokemon)
+                        }
+                        .onAppear {
+                            store.send(.bottomPagination(pokemon.id))
+                        }
                     }
                 }
                 .padding()
             }
         }
-        .ignoresSafeArea()
         .onAppear {
             store.send(.fetchInitialPokemonList(.zero))
         }

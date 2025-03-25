@@ -27,6 +27,8 @@ struct PokemonListStore: Sendable {
         case fetchInitialPokemonList(Int)
         case setPokemonList([Pokemon])
         case bottomPagination(Int)
+        case navigateToDetail
+
         case error(PokemonError)
         case unowned
     }
@@ -48,6 +50,8 @@ struct PokemonListStore: Sendable {
                 return .run { [offset = state.offset] send in
                     await send(await bottomPagination(number: number, offset: offset))
                 }
+            case .navigateToDetail:
+                return .none
             case let .error(error):
                 state.error = error
                 return .none

@@ -12,7 +12,7 @@ struct PokemonListItem: View {
 
     let pokemon: Pokemon
 
-    let imageHeight: CGFloat = 80
+    let imageHeight: CGFloat = 100
     var backgroundViewPaddingTop: CGFloat {
         imageHeight / 2
     }
