@@ -17,14 +17,7 @@ struct PokemonListView: View {
         NavigationStack {
             content()
                 .setNavigationTitleImage(Image(.pokemonLogo))
-                .navigationDestination(
-                    item: $store.scope(
-                        state: \ .destination?.pokemonDetail,
-                        action: \ .destination.pokemonDetail
-                    )
-                ) { store in
-                    PokemonDetailView(store: store)
-                }
+                .navigation(store: $store)
         }
     }
 }
@@ -58,6 +51,20 @@ private extension PokemonListView {
             }
         }
         .padding()
+    }
+}
+
+extension View {
+
+    func navigation(store: Bindable<StoreOf<PokemonListStore>>) -> some View {
+        self.navigationDestination(
+            item: store.scope(
+                state: \.destination?.pokemonDetail,
+                action: \.destination.pokemonDetail
+            )
+        ) { store in
+            PokemonDetailView(store: store)
+        }
     }
 }
 
