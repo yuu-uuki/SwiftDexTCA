@@ -18,11 +18,8 @@ struct PokemonListStore: Sendable {
     struct State {
         var pokemonList: [Pokemon] = []
         var error: PokemonError? = nil
-
-        @Presents var destination: Destination.State?
-
-        @ObservationStateIgnored
-        var offset: Int = 0
+        @Presents var destination: PokemonListDestination.State?
+        @ObservationStateIgnored var offset: Int = 0
     }
 
     enum Action {
@@ -33,7 +30,7 @@ struct PokemonListStore: Sendable {
         case error(PokemonError)
         case unowned
 
-        case destination(PresentationAction<Destination.Action>)
+        case destination(PresentationAction<PokemonListDestination.Action>)
         case navigateToDetail
     }
 
@@ -57,7 +54,7 @@ struct PokemonListStore: Sendable {
             case .destination:
                 return .none
             case .navigateToDetail:
-                state.destination = .showPokemonDetail(PokemonDetailStore.State())
+                state.destination = .pokemonDetail(PokemonDetailStore.State())
                 return .none
             case let .error(error):
                 state.error = error
@@ -65,18 +62,11 @@ struct PokemonListStore: Sendable {
             case .unowned:
                 return .none
             }
-        }.ifLet(\.$destination, action: \.destination)
+        }.ifLet(\.$destination, action: \.destination) {
+            PokemonListDestination()
+        }
     }
 }
-
-extension PokemonListStore {
-
-    @Reducer
-    enum Destination {
-        case showPokemonDetail(PokemonDetailStore)
-    }
-}
-
 
 private extension PokemonListStore {
 

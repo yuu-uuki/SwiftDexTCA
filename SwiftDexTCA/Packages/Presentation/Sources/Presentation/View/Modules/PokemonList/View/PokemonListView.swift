@@ -13,14 +13,14 @@ struct PokemonListView: View {
     @Bindable var store: StoreOf<PokemonListStore>
 
     var body: some View {
+
         NavigationStack {
             content()
-                .navigationTitle("Pokemon")
-                .navigationBarTitleDisplayMode(.inline)
+                .setNavigationTitleImage(Image(.pokemonLogo))
                 .navigationDestination(
                     item: $store.scope(
-                        state: \.destination?.showPokemonDetail,
-                        action: \.destination.showPokemonDetail
+                        state: \ .destination?.pokemonDetail,
+                        action: \ .destination.pokemonDetail
                     )
                 ) { store in
                     PokemonDetailView(store: store)
@@ -33,11 +33,9 @@ private extension PokemonListView {
 
     func content() -> some View {
         ScrollView {
-            ZStack {
-                Color(.pokemonBg)
-                gridView()
-            }
+            gridView()
         }
+        .background(Color(.pokemonBg))
         .onAppear {
             store.send(.fetchInitialPokemonList(.zero))
         }
