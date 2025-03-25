@@ -62,9 +62,9 @@ struct PokemonListStore: Sendable {
     }
 }
 
-extension PokemonListStore {
+private extension PokemonListStore {
 
-    private func requestPokemonList(offset: Int) async -> Action {
+    func requestPokemonList(offset: Int) async -> Action {
         do {
             let pokemonList = try await pokemonListUseCase.execute(limit: 50, offset: offset)
             return .setPokemonList(pokemonList)
@@ -75,7 +75,7 @@ extension PokemonListStore {
         }
     }
 
-    private func bottomPagination(number: Int, offset: Int) async -> Action {
+    func bottomPagination(number: Int, offset: Int) async -> Action {
         guard number == offset else {
             return .unowned
         }

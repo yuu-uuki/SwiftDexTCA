@@ -13,24 +13,7 @@ struct PokemonListView: View {
     let store: StoreOf<PokemonListStore>
 
     var body: some View {
-        ScrollView {
-            ZStack {
-                Color(.pokemonBg)
-                LazyVGrid(columns: Token.GridLayout.threeColumns, spacing: Token.Spacing.normal) {
-                    ForEach(store.state.pokemonList, id: \.id) { pokemon in
-                        Button(action: {
-                            // ボタンがタップされた時のアクション
-                        }) {
-                            PokemonListItem(pokemon: pokemon)
-                        }
-                        .onAppear {
-                            store.send(.bottomPagination(pokemon.id))
-                        }
-                    }
-                }
-                .padding()
-            }
-        }
+        content()
         .onAppear {
             store.send(.fetchInitialPokemonList(.zero))
         }
@@ -40,10 +23,30 @@ struct PokemonListView: View {
     }
 }
 
-#Preview {
-    PokemonListView(
-        store: Store(initialState: PokemonListStore.State()) {
-            PokemonListStore()
+private extension PokemonListView {
+
+    func content() -> some View {
+        ScrollView {
+            ZStack {
+                Color(.pokemonBg)
+                gridView()
+            }
         }
-    )
+    }
+
+    func gridView() -> some View {
+        LazyVGrid(columns: Token.GridLayout.threeColumns, spacing: Token.Spacing.normal) {
+            ForEach(store.state.pokemonList, id: \.id) { pokemon in
+                Button(action: {
+                    store.send(.navigateToDetail)
+                }) {
+                    PokemonListItem(pokemon: pokemon)
+                }
+                .onAppear {
+                    store.send(.bottomPagination(pokemon.id))
+                }
+            }
+        }
+        .padding()
+    }
 }
