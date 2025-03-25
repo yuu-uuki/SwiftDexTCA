@@ -19,6 +19,8 @@ struct PokemonListStore: Sendable {
         var pokemonList: [Pokemon] = []
         var error: PokemonError? = nil
 
+        @Presents var destination: Destination.State?
+
         @ObservationStateIgnored
         var offset: Int = 0
     }
@@ -27,10 +29,12 @@ struct PokemonListStore: Sendable {
         case fetchInitialPokemonList(Int)
         case setPokemonList([Pokemon])
         case bottomPagination(Int)
-        case navigateToDetail
 
         case error(PokemonError)
         case unowned
+
+        case destination(PresentationAction<Destination.Action>)
+        case navigateToDetail
     }
 
     var body: some Reducer<State, Action> {
@@ -50,7 +54,10 @@ struct PokemonListStore: Sendable {
                 return .run { [offset = state.offset] send in
                     await send(await bottomPagination(number: number, offset: offset))
                 }
+            case .destination:
+                return .none
             case .navigateToDetail:
+                state.destination = .showPokemonDetail(PokemonDetailStore.State())
                 return .none
             case let .error(error):
                 state.error = error
@@ -58,9 +65,18 @@ struct PokemonListStore: Sendable {
             case .unowned:
                 return .none
             }
-        }
+        }.ifLet(\.$destination, action: \.destination)
     }
 }
+
+extension PokemonListStore {
+
+    @Reducer
+    enum Destination {
+        case showPokemonDetail(PokemonDetailStore)
+    }
+}
+
 
 private extension PokemonListStore {
 

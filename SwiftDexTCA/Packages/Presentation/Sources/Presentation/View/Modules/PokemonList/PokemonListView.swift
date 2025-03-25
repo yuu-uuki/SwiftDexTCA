@@ -10,15 +10,21 @@ import ComposableArchitecture
 
 struct PokemonListView: View {
 
-    let store: StoreOf<PokemonListStore>
+    @Bindable var store: StoreOf<PokemonListStore>
 
     var body: some View {
-        content()
-        .onAppear {
-            store.send(.fetchInitialPokemonList(.zero))
-        }
-        .refreshable {
-            store.send(.fetchInitialPokemonList(.zero))
+        NavigationStack {
+            content()
+                .navigationTitle("Pokemon")
+                .navigationBarTitleDisplayMode(.inline)
+                .navigationDestination(
+                    item: $store.scope(
+                        state: \.destination?.showPokemonDetail,
+                        action: \.destination.showPokemonDetail
+                    )
+                ) { store in
+                    PokemonDetailView(store: store)
+                }
         }
     }
 }
@@ -31,6 +37,12 @@ private extension PokemonListView {
                 Color(.pokemonBg)
                 gridView()
             }
+        }
+        .onAppear {
+            store.send(.fetchInitialPokemonList(.zero))
+        }
+        .refreshable {
+            store.send(.fetchInitialPokemonList(.zero))
         }
     }
 
@@ -49,4 +61,12 @@ private extension PokemonListView {
         }
         .padding()
     }
+}
+
+#Preview {
+    PokemonListView(
+        store: Store(initialState: PokemonListStore.State()) {
+            PokemonListStore()
+        }
+    )
 }
