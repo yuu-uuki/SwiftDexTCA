@@ -12,7 +12,7 @@ public protocol PokemonListRepository: Sendable {
     func execute(limit: Int, offset: Int) async throws(ApplicationError) -> [Components.Schemas.PokemonSummary]
 }
 
-public struct PokemonListRepositoryImpl: PokemonListRepository {
+private struct PokemonListRepositoryImpl: PokemonListRepository {
 
     @Dependency(\.pokemonListDataStore) var pokemonListDataStore
 
