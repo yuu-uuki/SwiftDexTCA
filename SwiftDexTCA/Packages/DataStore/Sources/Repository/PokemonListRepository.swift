@@ -16,7 +16,7 @@ private struct PokemonListRepositoryImpl: PokemonListRepository {
 
     @Dependency(\.pokemonListDataStore) var pokemonListDataStore
 
-    public func execute(limit: Int, offset: Int) async throws(ApplicationError) -> [Components.Schemas.PokemonSummary] {
+    func execute(limit: Int, offset: Int) async throws(ApplicationError) -> [Components.Schemas.PokemonSummary] {
         return try await pokemonListDataStore.execute(input: .init(query: .init(limit: limit, offset: offset)))
     }
 }

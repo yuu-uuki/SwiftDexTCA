@@ -13,11 +13,11 @@ public protocol PokemonListUseCase: Sendable {
     func execute(limit: Int, offset: Int) async throws -> [Pokemon]
 }
 
-public struct PokemonListUseCaseImpl: PokemonListUseCase {
+private struct PokemonListUseCaseImpl: PokemonListUseCase {
 
     @Dependency(\.pokemonListRepository) var pokemonListRepository
 
-    public func execute(limit: Int, offset: Int) async throws -> [Pokemon] {
+    func execute(limit: Int, offset: Int) async throws -> [Pokemon] {
         do {
             let summaries = try await pokemonListRepository.execute(limit: limit, offset: offset)
             return summaries.compactMap { Pokemon($0) }

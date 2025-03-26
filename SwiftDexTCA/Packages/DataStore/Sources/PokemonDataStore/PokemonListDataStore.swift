@@ -17,7 +17,7 @@ private struct PokemonListDataStoreImpl: PokemonListDataStore {
         transport: URLSessionTransport()
     )
 
-    public func execute(input: Operations.pokemon_list.Input) async throws(ApplicationError) -> [Components.Schemas.PokemonSummary] {
+    func execute(input: Operations.pokemon_list.Input) async throws(ApplicationError) -> [Components.Schemas.PokemonSummary] {
         do {
             let response = try await self.client.pokemon_list(input)
             switch response {

@@ -15,7 +15,7 @@ extension View {
                 image
                     .resizable()
                     .aspectRatio(contentMode: .fit)
-                    .padding(.vertical, 5)
+                    .padding(.vertical, 0)
             }
         }
         .navigationBarTitleDisplayMode(.inline)

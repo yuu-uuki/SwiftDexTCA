@@ -21,7 +21,7 @@ private struct PokemonDetailDataStoreImpl: PokemonDetailDataStore {
         transport: URLSessionTransport()
     )
 
-    public func execute(input: Operations.pokemon_retrieve.Input) async throws(ApplicationError) -> Components.Schemas.PokemonDetail {
+    func execute(input: Operations.pokemon_retrieve.Input) async throws(ApplicationError) -> Components.Schemas.PokemonDetail {
         do {
             let response = try await self.client.pokemon_retrieve(input)
             switch response {

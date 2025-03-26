@@ -16,7 +16,7 @@ private struct PokemonDetailRepositoryImpl: PokemonDetailRepository {
 
     @Dependency(\.pokemonDetailDataStore) var pokemonDetailDataStore
 
-    public func execute(pokemonId: String) async throws(ApplicationError) -> Components.Schemas.PokemonDetail {
+    func execute(pokemonId: String) async throws(ApplicationError) -> Components.Schemas.PokemonDetail {
         return try await pokemonDetailDataStore.execute(input: .init(path: .init(id: pokemonId)))
     }
 }
