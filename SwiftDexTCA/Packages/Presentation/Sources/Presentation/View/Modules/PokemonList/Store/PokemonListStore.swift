@@ -31,7 +31,7 @@ struct PokemonListStore: Sendable {
         case unowned
 
         case destination(PresentationAction<PokemonListDestination.Action>)
-        case navigateToDetail
+        case navigateToScreen(PokemonListDestination.DestinationType)
     }
 
     var body: some Reducer<State, Action> {
@@ -53,8 +53,8 @@ struct PokemonListStore: Sendable {
                 }
             case .destination:
                 return .none
-            case .navigateToDetail:
-                state.destination = .pokemonDetail(PokemonDetailStore.State())
+            case let .navigateToScreen(type):
+                state.destination = .from(type)
                 return .none
             case let .error(error):
                 state.error = error

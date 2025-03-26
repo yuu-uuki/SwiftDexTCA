@@ -10,14 +10,23 @@ import ComposableArchitecture
 
 public struct RootView: View {
     public var body: some View {
+        NavigationStack {
+            pokemonListView()
+        }
+    }
+
+    public init() {}
+}
+
+private extension RootView {
+
+    func pokemonListView() -> some View {
         PokemonListView(
             store: Store(initialState: PokemonListStore.State()) {
                 PokemonListStore()
             }
         )
     }
-
-    public init() {}
 }
 
 #Preview {

@@ -14,11 +14,9 @@ struct PokemonListView: View {
 
     var body: some View {
 
-        NavigationStack {
-            content()
-                .setNavigationTitleImage(Image(.pokemonLogo))
-                .navigation(store: $store)
-        }
+        content()
+            .setNavigationTitleImage(Image(.pokemonLogo))
+            .navigation(store: $store)
     }
 }
 
@@ -41,7 +39,7 @@ private extension PokemonListView {
         LazyVGrid(columns: Token.GridLayout.threeColumns, spacing: Token.Spacing.normal) {
             ForEach(store.state.pokemonList, id: \.id) { pokemon in
                 Button(action: {
-                    store.send(.navigateToDetail)
+                    store.send(.navigateToScreen(.pokemonDetail))
                 }) {
                     PokemonListItem(pokemon: pokemon)
                 }
@@ -54,7 +52,8 @@ private extension PokemonListView {
     }
 }
 
-extension View {
+// MARK: - Screen Transitions
+private extension View {
 
     func navigation(store: Bindable<StoreOf<PokemonListStore>>) -> some View {
         self.navigationDestination(
@@ -68,6 +67,7 @@ extension View {
     }
 }
 
+// MARK: - Preview
 #Preview {
     PokemonListView(
         store: Store(initialState: PokemonListStore.State()) {
