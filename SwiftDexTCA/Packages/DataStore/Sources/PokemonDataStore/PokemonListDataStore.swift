@@ -10,7 +10,7 @@ public protocol PokemonListDataStore: Sendable {
     func execute(input: Operations.pokemon_list.Input) async throws(ApplicationError) -> [Components.Schemas.PokemonSummary]
 }
 
-public struct PokemonListDataStoreImpl: PokemonListDataStore {
+private struct PokemonListDataStoreImpl: PokemonListDataStore {
 
     let client = Client(
         serverURL: try! Servers.Server1.url(),

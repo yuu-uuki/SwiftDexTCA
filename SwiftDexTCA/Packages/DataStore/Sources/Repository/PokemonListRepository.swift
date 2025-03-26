@@ -22,12 +22,14 @@ public struct PokemonListRepositoryImpl: PokemonListRepository {
 }
 
 extension PokemonListRepositoryImpl: DependencyKey {
+
     public static var liveValue: PokemonListRepository {
         PokemonListRepositoryImpl()
     }
 }
 
 extension DependencyValues {
+
     public var pokemonListRepository: PokemonListRepository {
         get { self[PokemonListRepositoryImpl.self] }
         set { self[PokemonListRepositoryImpl.self] = newValue }
