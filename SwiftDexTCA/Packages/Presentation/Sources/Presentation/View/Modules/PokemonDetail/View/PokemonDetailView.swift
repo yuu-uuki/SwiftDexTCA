@@ -25,10 +25,12 @@ private extension PokemonDetailView {
             ScrollView{
                 VStack(spacing: Token.Spacing.loose) {
                     pokemonImageContainer(spacerHeight: geometry.safeAreaInsets.top)
-                    VStack(spacing: Token.Spacing.extraLoose) {
+                    VStack(spacing: Token.Spacing.loose) {
                         infoView()
                         physiqueContainer()
                         statsContainer()
+                        abilityContainer()
+                        Spacer()
                     }
                     .padding(.horizontal, Token.Padding.regular)
                 }
@@ -69,7 +71,7 @@ private extension PokemonDetailView {
         HStack {
             Text(store.state.pokemonDetail?.name ?? "")
                 .fontStyle(.titleExtraLarge)
-            Spacer()
+            Spacer(minLength: Token.Spacing.tight)
             HStack {
                 ForEach(store.state.pokemonDetail?.types ?? [], id: \.type.rawValue) { typePayload in
                     TypeTagView(title: typePayload.type.rawValue, color: typePayload.type.color)
@@ -91,6 +93,16 @@ private extension PokemonDetailView {
             ForEach(store.state.pokemonDetail?.stats ?? [], id: \.statType) { stats in
                 StatsView(stat: stats, color: store.state.pokemonDetail?.baseColor)
             }
+        }
+    }
+
+    func abilityContainer() -> some View {
+        HStack(spacing: Token.Spacing.extraLoose) {
+            Text("Abilities")
+                .fontStyle(.descriptionMiddleBold)
+            Text(store.state.pokemonDetail?.abilities.map { $0.name }.joined(separator: ", ") ?? "")
+                .fontStyle(.bodyMiddle)
+                .frame(maxWidth: .infinity, alignment: .leading)
         }
     }
 }

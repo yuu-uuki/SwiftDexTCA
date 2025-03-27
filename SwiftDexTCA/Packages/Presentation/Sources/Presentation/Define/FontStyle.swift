@@ -12,27 +12,29 @@ enum FontStyle: String {
     case titleMiddle
     case titleLarge
     case titleExtraLarge
+    case bodyMiddle
     case description
     case descriptionMiddle
     case descriptionLarge
+    case descriptionMiddleBold
 }
 
 extension FontStyle {
 
     var fontSize: CGFloat {
         switch self {
-        case .titleMiddle:
+        case .description:
+            return Token.FontSize.small
+        case .titleMiddle,
+             .bodyMiddle,
+             .descriptionMiddle,
+             .descriptionMiddleBold:
             return Token.FontSize.medium
-        case .titleLarge:
+        case .titleLarge,
+             .descriptionLarge:
             return Token.FontSize.large
         case .titleExtraLarge:
             return Token.FontSize.extraLarge
-        case .description:
-            return Token.FontSize.small
-        case .descriptionMiddle:
-            return Token.FontSize.medium
-        case .descriptionLarge:
-            return Token.FontSize.large
         }
     }
 
@@ -40,9 +42,11 @@ extension FontStyle {
         switch self {
         case .titleMiddle,
              .titleLarge,
-             .titleExtraLarge:
+             .titleExtraLarge,
+             .descriptionMiddleBold:
             return .bold
-        case .description,
+        case .bodyMiddle,
+             .description,
              .descriptionMiddle,
              .descriptionLarge:
             return .regular
@@ -53,11 +57,13 @@ extension FontStyle {
         switch self {
         case .titleMiddle,
              .titleLarge,
-             .titleExtraLarge:
+             .titleExtraLarge,
+             .bodyMiddle:
             return Color(.pokemonFgText)
         case .description,
              .descriptionMiddle,
-             .descriptionLarge:
+             .descriptionLarge,
+             .descriptionMiddleBold:
             return .gray
         }
     }
