@@ -14,8 +14,7 @@ struct PokemonDetailView: View {
 
     var body: some View {
         content()
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbarBackground(.clear, for: .navigationBar)
+            .configureNavigationBarHiddenTitle()
     }
 }
 

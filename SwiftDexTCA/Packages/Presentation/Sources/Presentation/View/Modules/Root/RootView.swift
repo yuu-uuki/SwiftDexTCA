@@ -13,6 +13,7 @@ public struct RootView: View {
         NavigationStack {
             pokemonListView()
         }
+        .tint(Color(.pokemonFgText))
     }
 
     public init() {}

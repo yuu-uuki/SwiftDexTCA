@@ -18,7 +18,12 @@ extension View {
                     .padding(.vertical, 0)
             }
         }
-        .navigationBarTitleDisplayMode(.inline)
-        .toolbarBackground(.clear, for: .navigationBar)
+        .configureNavigationBarHiddenTitle()
+    }
+
+    func configureNavigationBarHiddenTitle() -> some View {
+        self.navigationTitle("")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbarBackground(.clear, for: .navigationBar)
     }
 }
