@@ -53,9 +53,9 @@ private extension PokemonListItem {
     func pokemonInfoView() -> some View {
         VStack {
             Text("# \(pokemon.id.description)")
-                .pokemonIDStyle()
+                .fontStyle(.description)
             Text(pokemon.name)
-                .pokemonNameStyle()
+                .fontStyle(.titleMiddle)
         }
     }
 }

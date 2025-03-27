@@ -12,42 +12,48 @@ public struct PokemonDetail {
     public let id: Int
     public let name: String
     public let baseExperience: Int?
-    public let height: Int?
-    public let weight: Int?
+    public let physiqueType: [PhysiqueType]
     public let abilities: [AbilitiePayload]
-    public let sprites: SpritesPayload
     public let stats: [PokemonStat]
     public let types: [TypePayload]
+    public let officialArtworkImageUrl: URL?
 
     public init(_ detail: Components.Schemas.PokemonDetail) {
         id = detail.id
         name = detail.name
         baseExperience = detail.base_experience
-        height = detail.height
-        weight = detail.weight
+        physiqueType = [.height(detail.height), .weight(detail.weight)]
         abilities = detail.abilities.compactMap { AbilitiePayload($0) }
-        sprites = .init(detail.sprites)
-        stats = detail.stats.map { PokemonStat($0) }
-        types = detail.types.map { TypePayload($0) }
+        stats = detail.stats.compactMap { PokemonStat($0) }
+        types = detail.types.compactMap { TypePayload($0) }
+        officialArtworkImageUrl = URL(string: PokemonUtility.getOfficialArtworkURL(from: detail.id))
     }
 
-    public struct SpritesPayload {
-        public let frontDefault: String?
-        public let additionalProperties: [String: String?]
-
-        public init(_ data: Components.Schemas.PokemonDetail.spritesPayload) {
-            frontDefault = data.front_default
-            additionalProperties = data.additionalProperties
-        }
+    public init() {
+        id = 1
+        name = "bulbasaur"
+        baseExperience = 64
+        physiqueType = [.height(7), .weight(69)]
+        abilities = [.init()]
+        stats = [.init()]
+        types = [.init()]
+        officialArtworkImageUrl = URL(string: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/\(1).png")
     }
 
     public struct TypePayload {
-        public let name: String
+        public let type: PokemonType
         public let url: String
 
-        public init(_ data: Components.Schemas.PokemonDetail.typesPayloadPayload) {
-            name = data._type.name
+        public init?(_ data: Components.Schemas.PokemonDetail.typesPayloadPayload) {
+            guard let pokemonType = PokemonType(rawValue: data._type.name) else {
+                return nil
+            }
+            type = pokemonType
             url = data._type.url
+        }
+        public init() {
+            type = .init(rawValue: "grass")!
+            url = "https://pokeapi.co/api/v2/type/12/"
         }
     }
 
@@ -58,6 +64,11 @@ public struct PokemonDetail {
         public init(_ data: Components.Schemas.PokemonDetail.abilitiesPayloadPayload) {
             name = data.ability.name
             url = data.ability.url
+        }
+
+        public init() {
+            name = "overgrow"
+            url = "https://pokeapi.co/api/v2/ability/65/"
         }
     }
 }

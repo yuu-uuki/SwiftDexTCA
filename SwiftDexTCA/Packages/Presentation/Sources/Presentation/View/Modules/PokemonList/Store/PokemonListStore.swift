@@ -17,7 +17,7 @@ struct PokemonListStore: Sendable {
     @ObservableState
     struct State {
         var pokemonList: [Pokemon] = []
-        var error: PokemonError? = nil
+        var error: PokemonError?
         @Presents var destination: PokemonListDestination.State?
         @ObservationStateIgnored var offset: Int = 0
     }

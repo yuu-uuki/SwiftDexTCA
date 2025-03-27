@@ -9,16 +9,9 @@ import SwiftUI
 
 extension Text {
 
-    func pokemonIDStyle() -> Text {
-        self
-            .foregroundColor(.gray)
-            .font(.system(size: Token.FontSize.small))
-    }
-
-    func pokemonNameStyle() -> Text {
-        self
-            .font(.system(size: Token.FontSize.medium))
-            .foregroundColor(Color(.pokemonFgText))
-            .bold()
+    func fontStyle(_ style: FontStyle) -> some View {
+        self.font(.system(size: style.fontSize))
+            .fontWeight(style.weight)
+            .foregroundStyle(style.color)
     }
 }

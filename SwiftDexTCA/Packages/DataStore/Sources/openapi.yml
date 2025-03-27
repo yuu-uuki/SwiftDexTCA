@@ -7680,7 +7680,7 @@ components:
             $ref: "#/components/schemas/PokemonGameIndex"
           readOnly: true
         held_items:
-          type: object
+          type: array
           required:
             - item
             - version_details
@@ -7804,29 +7804,6 @@ components:
           readOnly: true
         species:
           $ref: "#/components/schemas/PokemonSpeciesSummary"
-        sprites:
-          type: object
-          properties:
-            front_default:
-              type: string
-              format: uri
-              exmaple: https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/1.png
-          additionalProperties:
-            type: string
-            format: uri
-            nullable: true
-            examples:
-              - https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/shiny/1.png
-          examples:
-            - back_default: https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/1.png
-              back_female: null
-              back_shiny: https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/shiny/1.png
-              back_shiny_female: null
-              front_default: https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png
-              front_female: null
-              front_shiny: https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/1.png
-              front_shiny_female: null
-          readOnly: true
         cries:
           type: object
           required:

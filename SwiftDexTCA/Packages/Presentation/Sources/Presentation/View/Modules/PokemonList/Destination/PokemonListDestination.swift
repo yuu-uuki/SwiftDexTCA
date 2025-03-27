@@ -30,8 +30,8 @@ extension PokemonListDestination.State {
     /// `navigateToScreen(_:)` で `destination` をセットする際に使用
     static func from(_ type: PokemonListDestination.DestinationType) -> Self {
         switch type {
-        case .pokemonDetail:
-            return .pokemonDetail(PokemonDetailStore.State())
+        case let .pokemonDetail(id):
+            return .pokemonDetail(PokemonDetailStore.State(pokemonId: id))
         }
     }
 }
@@ -40,6 +40,6 @@ extension PokemonListDestination {
 
     /// 画面遷移用のenum
     enum DestinationType {
-        case pokemonDetail
+        case pokemonDetail(Int)
     }
 }

@@ -39,7 +39,7 @@ private extension PokemonListView {
         LazyVGrid(columns: Token.GridLayout.threeColumns, spacing: Token.Spacing.normal) {
             ForEach(store.state.pokemonList, id: \.id) { pokemon in
                 Button(action: {
-                    store.send(.navigateToScreen(.pokemonDetail))
+                    store.send(.navigateToScreen(.pokemonDetail(pokemon.id)))
                 }) {
                     PokemonListItem(pokemon: pokemon)
                 }

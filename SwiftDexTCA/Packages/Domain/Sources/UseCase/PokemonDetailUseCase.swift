@@ -32,6 +32,14 @@ extension PokemonDetailUseCaseImpl: DependencyKey {
     public static var liveValue: PokemonDetailUseCase {
         PokemonDetailUseCaseImpl()
     }
+
+    public static var previewValue: PokemonDetailUseCase {
+        let mockUseCase = PokemonDetailUseCaseMock()
+        mockUseCase.executeHandler = { _ in
+            return .init()
+        }
+        return mockUseCase
+    }
 }
 
 extension DependencyValues {
