@@ -20,10 +20,12 @@ struct PokemonListStore: Sendable {
         var error: PokemonError?
         @Presents var destination: PokemonListDestination.State?
         @ObservationStateIgnored var offset: Int = 0
+        @ObservationStateIgnored var initialLoading = true
     }
 
     enum Action {
-        case fetchInitialPokemonList(Int)
+        case fetchInitialPokemonList
+        case refreshPokemonList
         case setPokemonList([Pokemon])
         case bottomPagination(Int)
 
@@ -37,11 +39,19 @@ struct PokemonListStore: Sendable {
     var body: some Reducer<State, Action> {
         Reduce { state, action in
             switch action {
-            case let .fetchInitialPokemonList(offset):
+            case .fetchInitialPokemonList:
+                guard state.initialLoading else {
+                    return .none
+                }
+                state.initialLoading = false
+                return .run { send in
+                    await send(await requestPokemonList(offset: .zero))
+                }
+            case .refreshPokemonList:
                 state.pokemonList.removeAll()
                 state.offset = .zero
                 return .run { send in
-                    await send(await requestPokemonList(offset: offset))
+                    await send(await requestPokemonList(offset: .zero))
                 }
             case let .setPokemonList(pokemonList):
                 state.pokemonList.append(contentsOf: pokemonList)

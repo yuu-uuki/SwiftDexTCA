@@ -28,10 +28,10 @@ private extension PokemonListView {
         }
         .background(Color(.pokemonBg))
         .onAppear {
-            store.send(.fetchInitialPokemonList(.zero))
+            store.send(.fetchInitialPokemonList)
         }
         .refreshable {
-            store.send(.fetchInitialPokemonList(.zero))
+            store.send(.refreshPokemonList)
         }
     }
 

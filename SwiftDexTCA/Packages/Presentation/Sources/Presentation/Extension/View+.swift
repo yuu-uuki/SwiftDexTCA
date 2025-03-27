@@ -15,7 +15,7 @@ extension View {
                 image
                     .resizable()
                     .aspectRatio(contentMode: .fit)
-                    .padding(.vertical, 0)
+                    .padding(.bottom, Token.Spacing.tight)
             }
         }
         .configureNavigationBarHiddenTitle()
