@@ -15,7 +15,7 @@ struct PokemonListStore: Sendable {
     @Dependency(\.pokemonListUseCase) var pokemonListUseCase
 
     @ObservableState
-    struct State {
+    struct State: Equatable {
         var pokemonList: [Pokemon] = []
         var error: PokemonError?
         @Presents var destination: PokemonListDestination.State?
@@ -23,7 +23,7 @@ struct PokemonListStore: Sendable {
         @ObservationStateIgnored var initialLoading = true
     }
 
-    enum Action {
+    enum Action: Equatable {
         case fetchInitialPokemonList
         case refreshPokemonList
         case setPokemonList([Pokemon])

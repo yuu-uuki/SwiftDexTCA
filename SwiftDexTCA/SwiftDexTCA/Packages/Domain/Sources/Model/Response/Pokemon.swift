@@ -8,7 +8,7 @@
 import DataStore
 import Foundation
 
-public struct Pokemon {
+public struct Pokemon: Equatable, Sendable {
     public let id: Int
     public let name: String
     public let spriteImageUrl: URL?

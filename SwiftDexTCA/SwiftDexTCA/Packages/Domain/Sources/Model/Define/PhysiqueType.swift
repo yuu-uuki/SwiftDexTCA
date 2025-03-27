@@ -5,7 +5,7 @@
 //  Created by 田中裕貴 on 2025/03/27.
 //
 
-public enum PhysiqueType {
+public enum PhysiqueType: Equatable {
     case weight(Int?)
     case height(Int?)
 }

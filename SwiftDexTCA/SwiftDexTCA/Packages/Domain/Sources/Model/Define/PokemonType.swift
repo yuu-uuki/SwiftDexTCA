@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum PokemonType: String {
+public enum PokemonType: String, Equatable {
     case normal
     case fire
     case water

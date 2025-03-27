@@ -10,11 +10,11 @@ import ComposableArchitecture
 @Reducer
 struct PokemonListDestination: Sendable {
 
-    enum State {
+    enum State: Equatable {
         case pokemonDetail(PokemonDetailStore.State)
     }
 
-    enum Action {
+    enum Action: Equatable {
         case pokemonDetail(PokemonDetailStore.Action)
     }
 
@@ -39,7 +39,7 @@ extension PokemonListDestination.State {
 extension PokemonListDestination {
 
     /// 画面遷移用のenum
-    enum DestinationType {
+    enum DestinationType: Equatable {
         case pokemonDetail(Int)
     }
 }

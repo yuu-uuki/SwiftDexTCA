@@ -8,7 +8,7 @@
 import DataStore
 import Foundation
 
-public struct PokemonStat {
+public struct PokemonStat: Equatable {
     public let baseStat: Int
     public let effort: Int
     public let statType: StatType
@@ -25,7 +25,7 @@ public struct PokemonStat {
         statType = .hp
     }
 
-    public enum StatType: String {
+    public enum StatType: String, Equatable {
         case hp
         case attack
         case defense

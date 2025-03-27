@@ -14,13 +14,13 @@ struct PokemonDetailStore: Sendable {
     @Dependency(\.pokemonDetailUseCase) var pokemonDetailUseCase
 
     @ObservableState
-    struct State {
+    struct State: Equatable {
         @ObservationStateIgnored let pokemonId: Int
         var pokemonDetail: PokemonDetail?
         var error: PokemonError?
     }
 
-    enum Action {
+    enum Action: Equatable {
         case fetchPokemonDetail
         case setPokemonList(PokemonDetail)
         case error(PokemonError)

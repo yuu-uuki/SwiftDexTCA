@@ -8,7 +8,7 @@
 import DataStore
 import Foundation
 
-public enum PokemonError: Error {
+public enum PokemonError: Error, Equatable {
     case network(NetworkError)
 
     init(_ error: ApplicationError) {
@@ -19,7 +19,7 @@ public enum PokemonError: Error {
         }
     }
 
-    public enum NetworkError: Error {
+    public enum NetworkError: Error, Equatable {
         case api(Error)
         case invalidResponse
 
@@ -29,6 +29,16 @@ public enum PokemonError: Error {
                 self = .api(error)
             case .invalidResponse:
                 self = .invalidResponse
+            }
+        }
+        public static func == (lhs: NetworkError, rhs: NetworkError) -> Bool {
+            switch (lhs, rhs) {
+            case (.api(let lhs), .api(let rhs)):
+                return lhs.localizedDescription == rhs.localizedDescription
+            case (.invalidResponse, .invalidResponse):
+                return true
+            default:
+                return false
             }
         }
     }
