@@ -49,4 +49,3 @@ extension DependencyValues {
         set { self[PokemonListUseCaseImpl.self] = newValue }
     }
 }
-

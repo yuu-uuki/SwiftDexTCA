@@ -36,17 +36,17 @@ public struct PokemonStat: Equatable, Sendable {
 
         public var name: String {
             switch self {
-            case .hp: 
+            case .hp:
                 return "HP"
             case .attack:
                 return "Attack"
-            case .defense: 
+            case .defense:
                 return "Defense"
-            case .specialAttack: 
+            case .specialAttack:
                 return "Sp.Atk"
-            case .specialDefense: 
+            case .specialDefense:
                 return "Sp.Def"
-            case .speed: 
+            case .speed:
                 return "Speed"
             case .none:
                 return ""

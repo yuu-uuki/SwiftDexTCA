@@ -11,17 +11,23 @@ import OpenAPIRuntime
 import OpenAPIURLSession
 
 public protocol PokemonDetailDataStore: Sendable {
-    func execute(input: Operations.pokemon_retrieve.Input) async throws(ApplicationError) -> Components.Schemas.PokemonDetail
+    func execute(
+        input: Operations.pokemon_retrieve.Input
+    ) async throws(ApplicationError) -> Components.Schemas.PokemonDetail
 }
 
 private struct PokemonDetailDataStoreImpl: PokemonDetailDataStore {
 
+    // swiftlint:disable force_try
     let client = Client(
         serverURL: try! Servers.Server1.url(),
         transport: URLSessionTransport()
     )
+    // swiftlint:enable force_try
 
-    func execute(input: Operations.pokemon_retrieve.Input) async throws(ApplicationError) -> Components.Schemas.PokemonDetail {
+    func execute(
+        input: Operations.pokemon_retrieve.Input
+    ) async throws(ApplicationError) -> Components.Schemas.PokemonDetail {
         do {
             let response = try await self.client.pokemon_retrieve(input)
             switch response {

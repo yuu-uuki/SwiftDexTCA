@@ -7,13 +7,13 @@ let package = Package(
     name: "Presentation",
     platforms: [
         .iOS(.v17),
-        .macOS(.v14)
+        .macOS(.v15)
     ],
     products: [
         .library(
             name: "Presentation",
             targets: ["Presentation"]
-        ),
+        )
     ],
     dependencies: [
         .package(path: "../Packages/Domain"),
@@ -33,6 +33,6 @@ let package = Package(
         .testTarget(
             name: "PresentationTests",
             dependencies: ["Presentation"]
-        ),
+        )
     ]
 )

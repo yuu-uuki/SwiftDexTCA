@@ -37,7 +37,9 @@ public struct PokemonDetail: Equatable, Sendable {
         abilities = [.init()]
         stats = [.init()]
         types = [.init()]
-        officialArtworkImageUrl = URL(string: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/\(1).png")
+        officialArtworkImageUrl = URL(
+            string: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/\(1).png"
+        )
     }
 
     public struct TypePayload: Equatable, Sendable {
@@ -72,4 +74,3 @@ public struct PokemonDetail: Equatable, Sendable {
         }
     }
 }
-

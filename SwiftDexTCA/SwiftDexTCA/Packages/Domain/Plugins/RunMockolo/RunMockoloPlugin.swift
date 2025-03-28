@@ -18,10 +18,10 @@ import PackagePlugin
                 executable: try context.tool(named: "mockolo").path,
                 arguments: [
                     "-s", packageRoot.appending("Sources", "UseCase").string,
-                    "-d", generatedSourcePath,
+                    "-d", generatedSourcePath
                 ],
                 outputFilesDirectory: context.pluginWorkDirectory
-            ),
+            )
         ]
     }
 }

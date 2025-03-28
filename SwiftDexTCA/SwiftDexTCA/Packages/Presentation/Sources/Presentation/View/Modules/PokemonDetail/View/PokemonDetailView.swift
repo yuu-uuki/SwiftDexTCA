@@ -22,7 +22,7 @@ private extension PokemonDetailView {
 
     func content() -> some View {
         GeometryReader { geometry in
-            ScrollView{
+            ScrollView {
                 VStack(spacing: Token.Spacing.loose) {
                     pokemonImageContainer(spacerHeight: geometry.safeAreaInsets.top)
                     VStack(spacing: Token.Spacing.loose) {

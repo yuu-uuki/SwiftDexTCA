@@ -24,11 +24,12 @@ public struct Pokemon: Equatable, Sendable {
         officialArtworkImageUrl = PokemonUtility.getOfficialArtworkURL(from: summary.url)
     }
 
+    // swiftlint:disable line_length
     public init(number: Int) {
         id = number
         name = "testName\(number)"
         spriteImageUrl = URL(string: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/\(number).png")
         officialArtworkImageUrl = URL(string: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/\(number).png")
     }
+    // swiftlint:enable line_length
 }
-

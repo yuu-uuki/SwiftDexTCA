@@ -7,13 +7,13 @@ let package = Package(
     name: "DataStore",
     platforms: [
         .iOS(.v17),
-        .macOS(.v14)
+        .macOS(.v15)
     ],
     products: [
         .library(
             name: "DataStore",
             targets: ["DataStore"]
-        ),
+        )
     ],
     dependencies: [
         .package(url: "https://github.com/apple/swift-openapi-generator.git", from: "1.7.1"),
@@ -37,6 +37,6 @@ let package = Package(
         .testTarget(
             name: "DataStoreTests",
             dependencies: ["DataStore"]
-        ),
+        )
     ]
 )

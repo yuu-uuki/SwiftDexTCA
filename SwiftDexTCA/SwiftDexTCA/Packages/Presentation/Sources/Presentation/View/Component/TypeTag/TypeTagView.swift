@@ -10,7 +10,7 @@ import SwiftUI
 struct TypeTagView: View {
     let title: String
     let color: Color
-    
+
     var body: some View {
         Text(title)
             .fontStyle(.titleMiddle)

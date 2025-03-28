@@ -7,12 +7,13 @@ let package = Package(
     name: "Domain",
     platforms: [
         .iOS(.v17),
-        .macOS(.v14)
+        .macOS(.v15)
     ],
     products: [
         .library(
             name: "Domain",
-            targets: ["Domain"]),
+            targets: ["Domain"]
+        )
     ],
     dependencies: [
         .package(path: "../Packages/DataStore"),
@@ -27,7 +28,7 @@ let package = Package(
             ],
             path: "Sources",
             plugins: [
-                .plugin(name: "RunMockolo"),
+                .plugin(name: "RunMockolo")
             ]
         ),
         .plugin(
@@ -43,6 +44,6 @@ let package = Package(
         .testTarget(
             name: "DomainTests",
             dependencies: ["Domain"]
-        ),
+        )
     ]
 )
