@@ -4,7 +4,7 @@ import Testing
 @testable import Presentation
 @testable import Domain
 
-protocol PokemonListStoreTest {
+private protocol PokemonListStoreTests {
     func fetchPokemonListSuccess() async
     func fetchPokemonListFailure() async
     func refreshPokemonList() async
@@ -12,11 +12,12 @@ protocol PokemonListStoreTest {
     func navigateToScreen() async
 }
 
-struct PokemonListStoreTestImpl: PokemonListStoreTest {
+@MainActor @Suite("ポケモンリスト画面のテスト")
+struct PokemonListStoreTestImpl: PokemonListStoreTests {
 
     var mockUseCase = PokemonListUseCaseMock()
 
-    @MainActor @Test
+    @Test("データ取得成功")
     func fetchPokemonListSuccess() async {
         let expectedPokemonList = [Pokemon(number: 1), Pokemon(number: 2)]
         let mockUseCase = mockUseCaseWithResponse(expectedPokemonList)
@@ -30,9 +31,10 @@ struct PokemonListStoreTestImpl: PokemonListStoreTest {
             state.pokemonList = expectedPokemonList
             state.offset = expectedPokemonList.count
         }
+        #expect(mockUseCase.executeCallCount == 1)
     }
 
-    @MainActor @Test
+    @Test("データ取得失敗")
     func fetchPokemonListFailure() async {
         let error: PokemonError = .network(.invalidResponse)
         let mockUseCase = mockUseCaseWithResponse(nil)
@@ -45,9 +47,10 @@ struct PokemonListStoreTestImpl: PokemonListStoreTest {
         await store.receive(.error(error)) { state in
             state.error = error
         }
+        #expect(mockUseCase.executeCallCount == 1)
     }
 
-    @MainActor @Test
+    @Test("pull to refreshのテスト")
     func refreshPokemonList() async {
         let expectedPokemonList = [Pokemon(number: 1), Pokemon(number: 2)]
         let mockUseCase = mockUseCaseWithResponse(expectedPokemonList)
@@ -72,9 +75,10 @@ struct PokemonListStoreTestImpl: PokemonListStoreTest {
             state.pokemonList = expectedPokemonList
             state.offset = expectedPokemonList.count
         }
+        #expect(mockUseCase.executeCallCount == 2)
     }
 
-    @MainActor @Test
+    @Test("bottomPaginationのテスト")
     func bottomPagination() async {
         let expectedPokemonList = [Pokemon(number: 1), Pokemon(number: 2)]
         let mockUseCase = mockUseCaseWithResponse(expectedPokemonList)
@@ -86,9 +90,10 @@ struct PokemonListStoreTestImpl: PokemonListStoreTest {
             state.pokemonList = expectedPokemonList
             state.offset = expectedPokemonList.count
         }
+        #expect(mockUseCase.executeCallCount == 1)
     }
 
-    @MainActor @Test
+    @Test("画面遷移のテスト")
     func navigateToScreen() async {
         let store = makeStore()
 
@@ -109,11 +114,10 @@ extension PokemonListStoreTestImpl {
 
     private func mockUseCaseWithResponse(_ response: [Pokemon]?) -> PokemonListUseCaseMock {
         mockUseCase.executeHandler = { _, _ in
-            if let response = response {
-                return response
-            } else {
+            guard let response else {
                 throw PokemonError.network(.invalidResponse)
             }
+            return response
         }
         return mockUseCase
     }

@@ -36,7 +36,7 @@ extension PokemonDetailUseCaseImpl: DependencyKey {
     public static var previewValue: PokemonDetailUseCase {
         let mockUseCase = PokemonDetailUseCaseMock()
         mockUseCase.executeHandler = { _ in
-            return .init()
+            return .init(number: 1)
         }
         return mockUseCase
     }

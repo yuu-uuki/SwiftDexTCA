@@ -22,7 +22,7 @@ struct PokemonDetailStore: Sendable {
 
     enum Action: Equatable {
         case fetchPokemonDetail
-        case setPokemonList(PokemonDetail)
+        case setPokemonData(PokemonDetail)
         case error(PokemonError)
         case unowned
     }
@@ -34,7 +34,7 @@ struct PokemonDetailStore: Sendable {
                 return .run { [id = state.pokemonId] send in
                     await send(await requestPokemonDetail(id: id))
                 }
-            case let .setPokemonList(pokemonDetail):
+            case let .setPokemonData(pokemonDetail):
                 state.pokemonDetail = pokemonDetail
                 return .none
             case let .error(error):
@@ -52,7 +52,7 @@ extension PokemonDetailStore {
     func requestPokemonDetail(id: Int) async -> Action {
         do {
             let detail = try await pokemonDetailUseCase.execute(id: id)
-            return .setPokemonList(detail)
+            return .setPokemonData(detail)
         } catch let error as PokemonError {
             return .error(error)
         } catch {

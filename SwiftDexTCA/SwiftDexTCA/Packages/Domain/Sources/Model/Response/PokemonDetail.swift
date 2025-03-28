@@ -8,7 +8,7 @@
 import DataStore
 import Foundation
 
-public struct PokemonDetail: Equatable {
+public struct PokemonDetail: Equatable, Sendable {
     public let id: Int
     public let name: String
     public let baseExperience: Int?
@@ -29,8 +29,8 @@ public struct PokemonDetail: Equatable {
         officialArtworkImageUrl = URL(string: PokemonUtility.getOfficialArtworkURL(from: detail.id))
     }
 
-    public init() {
-        id = 1
+    public init(number: Int) {
+        id = number
         name = "bulbasaur"
         baseExperience = 64
         physiqueType = [.height(7), .weight(69)]
@@ -40,7 +40,7 @@ public struct PokemonDetail: Equatable {
         officialArtworkImageUrl = URL(string: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/\(1).png")
     }
 
-    public struct TypePayload: Equatable {
+    public struct TypePayload: Equatable, Sendable {
         public let type: PokemonType
         public let url: String
 
@@ -57,7 +57,7 @@ public struct PokemonDetail: Equatable {
         }
     }
 
-    public struct AbilitiePayload: Equatable {
+    public struct AbilitiePayload: Equatable, Sendable {
         public let name: String
         public let url: String
 
