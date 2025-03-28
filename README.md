@@ -26,10 +26,10 @@
 
 | Light | Dark |
 | ----- | ---- |
-| <img alt="detail" src="https://github.com/user-attachments/assets/0c7689be-27fb-4363-8709-bf85fcbf3d3c" width="240"> | <img alt="detail" src="https://github.com/user-attachments/assets/ae572b22-8e39-4536-8eb5-7067b868792c" width="240"> |  
+| <img alt="detail" src="https://github.com/user-attachments/assets/0c7689be-27fb-4363-8709-bf85fcbf3d3c" width="240"> | <img alt="detail" src="https://github.com/user-attachments/assets/9ad09dca-6891-4cc1-b41b-0fb304101540" width="240"> |  
 
 ## 🚀 Setup  
-1. repository clone
+1. リポジトリをクローンする
 2. 依存関係をインストールし、プロジェクトを開く
 ```
 make bootstrap open
